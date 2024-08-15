@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Register Form</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            background-color: #303030;
+            color: #fff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        main {
+            display: flex;
+            flex-direction: row;
+            gap: 2%;
+            width: 90%;
+            /* max-width: 1200px; */
+        }
+
+        section {
+            flex: 1;
+            border: 1px solid #fff;
+            border-radius: 10px;
+            padding: 2%;
+            height: fit-content;
+        }
+
+        .registerDiv {
+            width: 100%;
+        }
+
+        h1 {
+            margin-bottom: 2vh;
+            text-align: center;
+        }
+
+        .box {
+            margin-bottom: 1.5vh;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        label {
+            margin-right: 2%;
+            width: 30%;
+        }
+
+        input {
+            flex: 1;
+            padding: 1.5vh;
+            border: none;
+            border-radius: 10px;
+        }
+
+        button {
+            width: 100%;
+            padding: 1.5vh;
+            border: none;
+            border-radius: 5px;
+            background-color: #fff;
+            color: #000;
+            font-size: 1em;
+            cursor: pointer;
+            transition: background-color 0.3s ease, color 0.3s ease;
+            &:hover {
+                background-color: #444;
+                color: #fff;
+            }
+        }
+
+
+        a {
+            display: block;
+            text-align: center;
+            margin-top: 2vh;
+            color: #fff;
+            text-decoration: none;
+            & span {
+                color: #aaa;
+            }
+        }
+
+
+        .data {
+            overflow-x: auto;
+            border-radius: 10px;
+            padding: 20px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            padding: 1%;
+            text-align: left;
+            border-bottom: 1px solid #a7a7a7;
+        }
+
+        tr:hover {
+            background-color: #3f4141;
+        }
+
+        @media (max-width: 768px) {
+            main {
+                flex-direction: column;
+                gap: 10px;
+            }
+
+            label {
+                width: auto;
+                flex: 1;
+            }
+
+            input {
+                width: 60%;
+            }
+
+            button {
+                padding: 10px;
+            }
+        }
+    </style>
+  </head>
+  <body>
+    <main>
+      <section>
+        <div class="registerDiv">
+          <h1>Registration Form</h1>
+          <form onsubmit="registration(event)" id="registerForm">
+            <div class="box">
+              <label for="email">Email</label>
+              <input type="email" id="email" required />
+            </div>
+            <div class="box">
+              <label for="fName">First Name</label>
+              <input type="text" id="fName" required />
+            </div>
+            <div class="box">
+              <label for="lName">Last Name</label>
+              <input type="text" id="lName" required />
+            </div>
+            <div class="box">
+              <label for="contact">Contact</label>
+              <input type="text" id="contact" maxlength="10" required />
+            </div>
+            <div class="box">
+              <label for="password">Password</label>
+              <input type="password" id="password" required />
+            </div>
+            <div class="box">
+              <label for="cPassword">Confirm Password</label>
+              <input type="password" id="cPassword" required />
+            </div>
+            <button type="submit" id="registerBtn">Register</button>
+          </form>
+          <a href="login.html">Already have an account? <span>Login</span></a>
+        </div>
+      </section>
+      <section>
+        <div class="data">
+            <h1>User Data</h1>
+            <div class="displayData" id="displayData"></div>
+        </div>
+      </section>
+    </main>
+
+    <script>
+      function registration(event) {
+        event.preventDefault();
+
+        const email = document.getElementById("email").value;
+        const f_name = document.getElementById("fName").value;
+        const l_name = document.getElementById("lName").value;
+        const contact = document.getElementById("contact").value;
+        const password = document.getElementById("password").value;
+        const c_password = document.getElementById("cPassword").value;
+
+        if (password !== c_password) {
+          alert("Passwords don't match!");
+          return;
+        }
+
+        let users = JSON.parse(localStorage.getItem("users")) || [];
+
+        const userAlreadyExist = users.some(user => user.email === email);
+
+        if (userAlreadyExist) {
+          alert("User already exists with this email!");
+        } else {
+          users.push({ email, f_name, l_name, contact, password });
+          localStorage.setItem("users", JSON.stringify(users));
+          alert("Registration successful!");
+          displayRegisteredData();
+          window.location.href = "login.html";
+        }
+      }
+
+      function displayRegisteredData() {
+        const users = JSON.parse(localStorage.getItem("users")) || [];
+
+        const displayData = document.getElementById("displayData");
+
+        if (users.length > 0) {
+          let tableContent = `
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Email</th>
+                            <th>First Name</th>
+                            <th>Last Name</th>
+                            <th>Contact</th>
+                            <th>Password</th>
+                        </tr>
+                    </thead>
+                    <tbody>`;
+
+          users.forEach(user => {
+            tableContent += `
+                        <tr>
+                            <td>${user.email}</td>
+                            <td>${user.f_name}</td>
+                            <td>${user.l_name}</td>
+                            <td>${user.contact}</td>
+                            <td>${user.password}</td>
+                        </tr>`;
+          });
+
+          tableContent += `</tbody></table>`;
+          displayData.innerHTML = tableContent;
+        } else {
+          displayData.innerHTML = "<p>No registered users yet.</p>";
+        }
+      }
+
+      window.onload = displayRegisteredData;
+    </script>
+  </body>
+</html>
