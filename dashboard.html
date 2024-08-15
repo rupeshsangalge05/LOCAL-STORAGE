@@ -9,6 +9,7 @@
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+            font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif, sans-serif;
         }
         html, body {
             height: 100%;
@@ -49,7 +50,6 @@
         }
     </style>
     <script>
-        // Redirect to login page if user is not logged in 
         if (!localStorage.getItem('loggedInUser')) {
             window.location.href = 'login.html';
         }

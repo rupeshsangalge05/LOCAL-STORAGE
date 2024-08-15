@@ -9,6 +9,7 @@
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+            font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif, sans-serif;
         }
         html, body{
             height: 100%;
@@ -95,7 +96,7 @@
                     <div class="box"><label for="password">Password</label><input type="password" id="password" required /></div>        
                     <button type="submit">Login</button>
                 </form>
-                <a href="login.html">Don't have an account? <span>Register</span></a>
+                <a href="register.html">Don't have an account? <span>Register</span></a>
             </div>
         </section>
     </main>
@@ -115,7 +116,7 @@
                 alert("Login successful!");
                 window.location.href = "dashboard.html";
             } else {
-                alert("Invalid rmail or password!!");
+                alert("Invalid rmail or password. Please try again!");
             }
         }
     </script>

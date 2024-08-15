@@ -5,135 +5,134 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Register Form</title>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: Arial, sans-serif;
-        }
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif, sans-serif;
+      }
 
-        body {
-            background-color: #303030;
-            color: #fff;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-        }
+      body {
+        background-color: #303030;
+        color: #fff;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+      }
 
+      main {
+        display: flex;
+        flex-direction: row;
+        gap: 2%;
+        width: 90%;
+        /* max-width: 1200px; */
+      }
+
+      section {
+        flex: 1;
+        border: 1px solid #fff;
+        border-radius: 10px;
+        padding: 2%;
+        height: fit-content;
+      }
+
+      .registerDiv {
+        width: 100%;
+      }
+
+      h1 {
+        margin-bottom: 2vh;
+        text-align: center;
+      }
+
+      .box {
+        margin-bottom: 1.5vh;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+      }
+
+      label {
+        margin-right: 2%;
+        width: 30%;
+      }
+
+      input {
+        flex: 1;
+        padding: 1.5vh;
+        border: none;
+        border-radius: 10px;
+      }
+
+      button {
+        width: 100%;
+        padding: 1.5vh;
+        border: none;
+        border-radius: 5px;
+        background-color: #fff;
+        color: #000;
+        font-size: 1em;
+        cursor: pointer;
+        transition: background-color 0.3s ease, color 0.3s ease;
+        &:hover {
+          background-color: #444;
+          color: #fff;
+        }
+      }
+
+      a {
+        display: block;
+        text-align: center;
+        margin-top: 2vh;
+        color: #fff;
+        text-decoration: none;
+        & span {
+          color: #aaa;
+        }
+      }
+
+      .data {
+        overflow-x: auto;
+        border-radius: 10px;
+        padding: 20px;
+      }
+
+      table {
+        width: 100%;
+        border-collapse: collapse;
+      }
+
+      th,
+      td {
+        padding: 1%;
+        text-align: left;
+        border-bottom: 1px solid #a7a7a7;
+      }
+
+      tr:hover {
+        background-color: #3f4141;
+      }
+
+      @media (max-width: 768px) {
         main {
-            display: flex;
-            flex-direction: row;
-            gap: 2%;
-            width: 90%;
-            /* max-width: 1200px; */
-        }
-
-        section {
-            flex: 1;
-            border: 1px solid #fff;
-            border-radius: 10px;
-            padding: 2%;
-            height: fit-content;
-        }
-
-        .registerDiv {
-            width: 100%;
-        }
-
-        h1 {
-            margin-bottom: 2vh;
-            text-align: center;
-        }
-
-        .box {
-            margin-bottom: 1.5vh;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
+          flex-direction: column;
+          gap: 10px;
         }
 
         label {
-            margin-right: 2%;
-            width: 30%;
+          width: auto;
+          flex: 1;
         }
 
         input {
-            flex: 1;
-            padding: 1.5vh;
-            border: none;
-            border-radius: 10px;
+          width: 60%;
         }
 
         button {
-            width: 100%;
-            padding: 1.5vh;
-            border: none;
-            border-radius: 5px;
-            background-color: #fff;
-            color: #000;
-            font-size: 1em;
-            cursor: pointer;
-            transition: background-color 0.3s ease, color 0.3s ease;
-            &:hover {
-                background-color: #444;
-                color: #fff;
-            }
+          padding: 10px;
         }
-
-
-        a {
-            display: block;
-            text-align: center;
-            margin-top: 2vh;
-            color: #fff;
-            text-decoration: none;
-            & span {
-                color: #aaa;
-            }
-        }
-
-
-        .data {
-            overflow-x: auto;
-            border-radius: 10px;
-            padding: 20px;
-        }
-
-        table {
-            width: 100%;
-            border-collapse: collapse;
-        }
-
-        th, td {
-            padding: 1%;
-            text-align: left;
-            border-bottom: 1px solid #a7a7a7;
-        }
-
-        tr:hover {
-            background-color: #3f4141;
-        }
-
-        @media (max-width: 768px) {
-            main {
-                flex-direction: column;
-                gap: 10px;
-            }
-
-            label {
-                width: auto;
-                flex: 1;
-            }
-
-            input {
-                width: 60%;
-            }
-
-            button {
-                padding: 10px;
-            }
-        }
+      }
     </style>
   </head>
   <body>
@@ -144,23 +143,23 @@
           <form onsubmit="registration(event)" id="registerForm">
             <div class="box">
               <label for="email">Email</label>
-              <input type="email" id="email" required />
+              <input type="email" id="email" pattern="/^[^\s@]+@[^\s@]+\.[^\s@]+$/" required />
             </div>
             <div class="box">
               <label for="fName">First Name</label>
-              <input type="text" id="fName" required />
+              <input type="text" id="fName" minlength="2" pattern="/^[A-Za-z]{2,}$/" required />
             </div>
             <div class="box">
               <label for="lName">Last Name</label>
-              <input type="text" id="lName" required />
+              <input type="text" id="lName" minlength="2" pattern="/^[A-Za-z]{2,}$/" required />
             </div>
             <div class="box">
               <label for="contact">Contact</label>
-              <input type="text" id="contact" maxlength="10" required />
+              <input type="text" id="contact" maxlength="10" pattern="/^\d{10}$/" required />
             </div>
             <div class="box">
               <label for="password">Password</label>
-              <input type="password" id="password" required />
+              <input type="password" id="password" minlength="6" maxlength="10" required />
             </div>
             <div class="box">
               <label for="cPassword">Confirm Password</label>
@@ -173,8 +172,8 @@
       </section>
       <section>
         <div class="data">
-            <h1>User Data</h1>
-            <div class="displayData" id="displayData"></div>
+          <h1>User Data</h1>
+          <div class="displayData" id="displayData"></div>
         </div>
       </section>
     </main>
@@ -197,7 +196,7 @@
 
         let users = JSON.parse(localStorage.getItem("users")) || [];
 
-        const userAlreadyExist = users.some(user => user.email === email);
+        const userAlreadyExist = users.some((user) => user.email === email);
 
         if (userAlreadyExist) {
           alert("User already exists with this email!");
@@ -206,7 +205,7 @@
           localStorage.setItem("users", JSON.stringify(users));
           alert("Registration successful!");
           displayRegisteredData();
-          window.location.href = "login.html";
+          window.location.href = "dashboard.html";
         }
       }
 
@@ -229,7 +228,7 @@
                     </thead>
                     <tbody>`;
 
-          users.forEach(user => {
+          users.forEach((user) => {
             tableContent += `
                         <tr>
                             <td>${user.email}</td>
